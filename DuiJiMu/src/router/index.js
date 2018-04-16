@@ -6,16 +6,19 @@ import IndexWeather from '@/components/weatherKnow/indexWeather/IndexWeather'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/weather',
-      name: 'IndexWeather',
       component: IndexWeather
     },
     {
-      path: '*',
-      name: 'ErrorPage',
+      path: '/errorpage',
       component: ErrorPage
+    },
+    {
+      path: '*',
+      redirect: '/errorpage'
     }
   ]
 })
