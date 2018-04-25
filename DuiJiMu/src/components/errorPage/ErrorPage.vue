@@ -2,13 +2,12 @@
   <div class="error_contain">
     <h1 class="error_logo">
       <div class="error_box">
-        <div class="error_msg">Error<br>页面不存在</div>
+        <div class="error_msg">Error<br/>页面不存在</div>
       </div>
     </h1>
   </div>
 </template>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .error_contain{
   position: fixed;
