@@ -31,7 +31,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style rel="stylesheet/scss" lang="scss" scoped>
+  color
 .index_weather_bg{
   position: fixed;
   width: 100%;
