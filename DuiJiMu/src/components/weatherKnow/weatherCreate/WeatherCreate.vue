@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data () {
     return {
@@ -41,8 +42,8 @@ export default {
         weatherTime: '',
         areaSelect: 'dc',
         genderSelect: '',
-        heightSelect: 0,
-        weightSelect: 0,
+        heightSelect: 160,
+        weightSelect: 50,
         cloths: [ ]
       },
       ispublic: false,
@@ -169,12 +170,10 @@ export default {
         var time = date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日' + date.getHours() + '时'
         this.weatherInfo.weatherTime = time
 
-        $http.get('http://www.weather.com.cn/data/sk/101010100.html')
+        axios.get('')
           .then(function (response) {
-            console.log(response)
           })
           .catch(function (error) {
-            console.log(error)
           })
       }
     }
