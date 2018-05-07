@@ -170,8 +170,9 @@ export default {
         var time = date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日' + date.getHours() + '时'
         this.weatherInfo.weatherTime = time
 
-        axios.get('')
+        axios.post('/api/weathercreate', this.weatherInfo)
           .then(function (response) {
+
           })
           .catch(function (error) {
           })

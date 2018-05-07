@@ -20,6 +20,13 @@ module.exports = {
         }
       }
       */
+      '/api': {
+        target: 'http://localhost:3000/duijimu/weather',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
     },
 
     // Various Dev Server settings
