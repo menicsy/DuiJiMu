@@ -13,20 +13,13 @@ module.exports = {
     proxyTable: {
       /*
       '/api': {
-        target: 'http://www.weather.com.cn',
+        target: 'http://v.juhe.cn/weather',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
         }
       }
       */
-      '/api': {
-        target: 'http://localhost:3000/duijimu/weather',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/api': ''
-        }
-      }
     },
 
     // Various Dev Server settings

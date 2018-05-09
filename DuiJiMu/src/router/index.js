@@ -9,7 +9,7 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/weatherindex',
+      path: '/duijimu/weather',
       component: WeatherIndex
     },
     {

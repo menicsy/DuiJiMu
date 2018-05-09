@@ -30,6 +30,7 @@
     </ul>
     <button class="public_weather" @click="publicWeather">发布我的天气</button>
     <div class="public_shadow" v-show="ispublic"></div>
+    <div class="commit_tip" v-show="iscommit">{{commitInfo}}</div>
   </div>
 </template>
 
@@ -39,7 +40,7 @@ export default {
   data () {
     return {
       weatherInfo: {
-        weatherTime: '',
+        weatherTime: 0,
         areaSelect: 'dc',
         genderSelect: '',
         heightSelect: 160,
@@ -47,6 +48,8 @@ export default {
         cloths: [ ]
       },
       ispublic: false,
+      iscommit: false,
+      commitInfo: '',
       areas: [
         {name: '我正在东城区', val: 'dc', choose: true},
         {name: '我正在西城区', val: 'xc', choose: false},
@@ -156,27 +159,44 @@ export default {
           }
         }
       }
+
       this.weatherInfo.cloths = []
-      for (let i = 0; i < this.cloths.length; i++) {
-        if (this.cloths[i].clothselect) {
-          this.weatherInfo.cloths.push(val)
+      for (let j = 0; j < this.cloths.length; j++) {
+        if (this.cloths[j].clothselect === true) {
+          this.weatherInfo.cloths.push(this.cloths[j].val)
         }
       }
     },
     publicWeather () {
+      var _this = this
       if (this.weatherInfo.areaSelect && this.weatherInfo.genderSelect && this.weatherInfo.heightSelect && this.weatherInfo.weightSelect && (this.weatherInfo.cloths.length > 0)) {
         this.ispublic = true
         var date = new Date()
-        var time = date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日' + date.getHours() + '时'
-        this.weatherInfo.weatherTime = time
-
-        axios.post('/api/weathercreate', this.weatherInfo)
+        this.weatherInfo.weatherTime = date.getTime()
+        axios.post('/weather/weathercreate', this.weatherInfo)
           .then(function (response) {
-
+            _this.iscommit = true
+            _this.commitInfo = '发布成功'
+            _this.sucessTimer = setTimeout(() => {
+              _this.$router.push('/weatherinfo')
+            }, 2000)
           })
           .catch(function (error) {
+            _this.iscommit = true
+            _this.commitInfo = '发布失败'
+            _this.failedTimer = setTimeout(() => {
+              _this.$router.push('/weatherinfo')
+            }, 2000)
           })
       }
+    }
+  },
+  beforeDestroy () {
+    if (this.sucessTimer) {
+      clearTimeout(this.sucessTimer)
+    }
+    if (this.failedTimer) {
+      clearTimeout(this.failedTimer)
     }
   },
   directives: {
@@ -446,6 +466,7 @@ export default {
     background: #8EE5EE;
     margin-left: -90px;
     border-radius: 50%;
+    border:1px solid #fff;
     @include shadow(2px 2px 2px #888);
   }
   .weather_create .public_shadow{
@@ -456,5 +477,22 @@ export default {
     height: 100%;
     background: 0;
     z-index: 10;
+  }
+  .weather_create .commit_tip{
+    position: fixed;
+    top:50%;
+    left:50%;
+    width:200px;
+    height: 60px;
+    text-align: center;
+    line-height:60px;
+    margin-top:-30px;
+    margin-left:-100px;
+    background:#63B8FF;
+    color:#fff;
+    font-size: 22px;
+    border-radius: 10px;
+    @include shadow(2px 2px 2px #888);
+    z-index: 11;
   }
 </style>

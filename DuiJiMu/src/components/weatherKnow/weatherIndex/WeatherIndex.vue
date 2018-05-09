@@ -20,7 +20,7 @@ export default {
   mounted () {
     this.loadTimer = setTimeout(() => {
       this.$router.push('/weatherinfo')
-    }, 2800)
+    }, 2000)
   },
   beforeDestroy () {
     if (this.loadTimer) {
