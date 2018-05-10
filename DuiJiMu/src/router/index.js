@@ -9,15 +9,15 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/duijimu/weather',
+      path: '/duijimu/weather/weatherindex',
       component: WeatherIndex
     },
     {
-      path: '/weatherinfo',
+      path: '/duijimu/weather/weatherinfo',
       component: WeatherInfo
     },
     {
-      path: '/weathercreate',
+      path: '/duijimu/weather/weathercreate',
       component: WeatherCreate
     }
   ]

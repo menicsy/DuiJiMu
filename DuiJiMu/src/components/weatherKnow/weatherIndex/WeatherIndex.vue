@@ -19,7 +19,7 @@ export default {
   },
   mounted () {
     this.loadTimer = setTimeout(() => {
-      this.$router.push('/weatherinfo')
+      this.$router.push('/duijimu/weather/weatherinfo')
     }, 2000)
   },
   beforeDestroy () {

@@ -49,14 +49,16 @@ export default {
   },
   methods: {
     createWeather () {
-      this.$router.push('/weathercreate')
+      this.$router.push('/duijimu/weather/weathercreate')
     }
   },
   created () {
     var _this = this
-    axios.post('/api/index?cityname=北京&key=4c8b666d7c9fc8645a752b18b49fc4ac')
+    axios.get('/api/getWeather')
       .then(function (response) {
+        console.log(response.data.result)
         _this.weatherInfo = response.data.result
+        console.log(_this.weatherInfo)
       })
       .catch(function (error) {
       })

@@ -173,7 +173,7 @@ export default {
         this.ispublic = true
         var date = new Date()
         this.weatherInfo.weatherTime = date.getTime()
-        axios.post('/weather/weathercreate', this.weatherInfo)
+        axios.post('/duijimu/weather/weatherCreate', this.weatherInfo)
           .then(function (response) {
             _this.iscommit = true
             _this.commitInfo = '发布成功'
