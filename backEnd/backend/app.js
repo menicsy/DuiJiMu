@@ -10,6 +10,31 @@ var ejs = require('ejs');
 var duijimuRouter = require('./routes/duijimu');
 var app = express();
 
+
+const axios = require('axios');
+const proxyConf = require('./proxy/proxy');
+const headerConf = {
+  referer: 'http://v.juhe.cn',
+  host: 'v.juhe.cn'
+};
+let apiRoutes = express.Router();
+for (let k in proxyConf) {
+  app.get(k, function(req, res) {
+    axios.get(proxyConf[k], {
+      headers: headerConf,
+      params: req.query
+    }).then(response => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.json(response.data);
+  }).catch(e => {
+      console.log(e);
+  });
+  });
+}
+app.use('/', apiRoutes);
+
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', ejs.__express);
