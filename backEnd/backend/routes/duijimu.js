@@ -18,8 +18,8 @@ router.post('/weather/weatherCreate', function(req, res, next) {
     var param = req.body;
     $weatherInfoDao.add(param, res);
 });
-router.post('/weather/weatherQuery', function(req, res, next) {
-    var param = req.body;
+router.get('/weather/weatherQuery', function(req, res, next) {
+    var param = req.query;
     $weatherInfoDao.queryByPage( param, res);
 });
 module.exports = router;

@@ -11,15 +11,15 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      /*
-      '/api': {
-        target: 'http://v.juhe.cn/weather',
+/*
+      '/proxyApi': {
+        target: 'http://localhost:3000',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
+          '^/proxyApi': ''
         }
       }
-      */
+*/
     },
 
     // Various Dev Server settings

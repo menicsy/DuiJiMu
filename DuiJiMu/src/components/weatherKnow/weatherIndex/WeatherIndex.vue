@@ -20,7 +20,7 @@ export default {
   mounted () {
     this.loadTimer = setTimeout(() => {
       this.$router.push('/duijimu/weather/weatherinfo')
-    }, 2000)
+    }, 2600)
   },
   beforeDestroy () {
     if (this.loadTimer) {
@@ -59,7 +59,6 @@ export default {
   }
   .weather_index .weather_index_bar{
     width:176px;
-    list-style:none;
     /* 分成5步的动画来移动进度条 */
     animation: weather_index_load 1s steps(5,end) both infinite;
   }

@@ -12,7 +12,7 @@
     <div class="height_box">
         <div class="start_height">160CM</div>
         <div class="choose_height">
-          <i class="choose_icon" v-drag="heightTip"></i>
+          <i class="choose_height_icon" v-dragHeight="heightTip"></i>
         </div>
         <div class="end_height">190CM</div>
     </div>
@@ -20,7 +20,7 @@
     <div class="weight_box">
       <div class="start_weight">50KG</div>
       <div class="choose_weight">
-        <i class="choose_icon" v-drag="weightTip"></i>
+        <i class="choose_weight_icon" v-dragWeight="weightTip"></i>
       </div>
       <div class="end_weight">80KG</div>
     </div>
@@ -178,14 +178,14 @@ export default {
             _this.iscommit = true
             _this.commitInfo = '发布成功'
             _this.sucessTimer = setTimeout(() => {
-              _this.$router.push('/weatherinfo')
+              _this.$router.push('/duijimu/weather/weatherinfo')
             }, 2000)
           })
           .catch(function (error) {
             _this.iscommit = true
             _this.commitInfo = '发布失败'
             _this.failedTimer = setTimeout(() => {
-              _this.$router.push('/weatherinfo')
+              _this.$router.push('/duijimu/weather/weatherinfo')
             }, 2000)
           })
       }
@@ -200,14 +200,14 @@ export default {
     }
   },
   directives: {
-    'drag': {
+    'dragHeight': {
       bind (el, binding) {
         var heightBtn = el
         heightBtn.addEventListener('touchstart', function (event) {
           var touch = event.targetTouches[0]
           var oldX = touch.clientX
           var oldOffsetleft = heightBtn.offsetLeft
-          document.addEventListener('touchmove', function (event) {
+          heightBtn.addEventListener('touchmove', function (event) {
             var touch = event.targetTouches[0]
             var newX = touch.clientX
             var finalX = (newX - oldX >= 0) ? (newX - oldX) : (oldX - newX)
@@ -224,9 +224,40 @@ export default {
               binding.value(newOffsetleft)
             }
           })
-          document.addEventListener('touchend', function (e) {
-            document.removeEventListener('touchmove')
-            document.removeEventListener('touchend')
+          heightBtn.addEventListener('touchend', function (e) {
+            heightBtn.removeEventListener('touchmove')
+            heightBtn.removeEventListener('touchend')
+          })
+        })
+      }
+    },
+    'dragWeight': {
+      bind (el, binding) {
+        var weightBtn = el
+        weightBtn.addEventListener('touchstart', function (event) {
+          var touch = event.targetTouches[0]
+          var oldX = touch.clientX
+          var oldOffsetleft = weightBtn.offsetLeft
+          weightBtn.addEventListener('touchmove', function (event) {
+            var touch = event.targetTouches[0]
+            var newX = touch.clientX
+            var finalX = (newX - oldX >= 0) ? (newX - oldX) : (oldX - newX)
+            var newOffsetleft = weightBtn.offsetLeft
+            if (newOffsetleft >= 0 && newOffsetleft <= 174) {
+              if (newX - oldX >= 0) {
+                weightBtn.style.left = oldOffsetleft + finalX + 'px'
+              } else {
+                weightBtn.style.left = oldOffsetleft - finalX + 'px'
+              }
+              if (newOffsetleft === 174) {
+                newOffsetleft = 180
+              }
+              binding.value(newOffsetleft)
+            }
+          })
+          weightBtn.addEventListener('touchend', function (e) {
+            weightBtn.removeEventListener('touchmove')
+            weightBtn.removeEventListener('touchend')
           })
         })
       }
@@ -238,7 +269,6 @@ export default {
   @mixin boxPosition{
     position: absolute;
     left:50%;
-    -webkit-tap-highlight-color: transparent;
   }
   @mixin prefix($property, $value){
     -webkit-#{$property}:$value;
@@ -318,22 +348,22 @@ export default {
     border:4px solid #FF8C00;
   }
   .weather_create .gender_box i:nth-child(1){
-    background: url('source/gender1.png') no-repeat center center;
+    background: url('source/boy.png') no-repeat center center;
     background-size: contain;
     background-color:#7ce9e6;
   }
   .weather_create .gender_box i:nth-child(2){
-    background: url('source/gender2.png') no-repeat center center;
+    background: url('source/girl.png') no-repeat center center;
     background-size: contain;
     background-color:#eaabfc;
   }
   .weather_create .gender_box i:nth-child(3){
-    background: url('source/gender3.png') no-repeat center center;
+    background: url('source/man.png') no-repeat center center;
     background-size: contain;
     background-color:#b1f564;
   }
   .weather_create .gender_box i:nth-child(4){
-    background: url('source/gender4.png') no-repeat center center;
+    background: url('source/woman.png') no-repeat center center;
     background-size: contain;
     background-color:#d4cabe;
   }
@@ -370,7 +400,7 @@ export default {
     position: relative;
     @include shadow(3px 3px 3px #888);
   }
-  .weather_create .height_box .choose_icon{
+  .weather_create .height_box .choose_height_icon{
     width:6px;
     height:28px;
     position: absolute;
@@ -412,7 +442,7 @@ export default {
     position: relative;
     @include shadow(3px 3px 3px #888);
   }
-  .weather_create .weight_box .choose_icon{
+  .weather_create .weight_box .choose_weight_icon{
     width:6px;
     height:28px;
     position: absolute;
@@ -437,7 +467,6 @@ export default {
     top:360px;
     margin-left:-180px;
     display: flex;
-    list-style: none;
   }
   .weather_create .cloth_select li{
     width:40px;
